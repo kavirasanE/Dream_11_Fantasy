@@ -6,7 +6,7 @@ const getSubcriptionInfo = async (req, res) => {
     // const statement = `EXEC USP_Mobile_App_Portal @route = :route, @type = :type, @UDR_Id = :UDR_Id`;
     const statement2 = `EXEC USP_Mobile_App_Portal @route = :route, @type = :type`;
 
-    // const replacements = {
+    // const replacements = {      
     //   replacements: {
     //     route: "ADD_SUBCRIPTION",
     //     type: "GETDEVICE",

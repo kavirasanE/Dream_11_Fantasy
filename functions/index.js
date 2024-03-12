@@ -3,6 +3,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/dbConfig");
 const { corsOptions } = require("./config/corsOptions");
+const serverless = require('serverless-http');
 
 const app = express();
 const PORT = 8000;
@@ -55,4 +56,4 @@ connectDB
   .catch((err) => console.log(`Error while connecting to DB - ${err}`));
 
 // Export the Express API
-module.exports = app;
+module.exports = serverless(app);
