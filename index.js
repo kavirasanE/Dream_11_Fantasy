@@ -1,59 +1,98 @@
-const express = require("express");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const connectDB = require("./config/dbConfig");
-const { corsOptions } = require("./config/corsOptions");
-const serverless = require('serverless-http');
+const express = require('express');
+const dotenv =require("dotenv")
+const AddTeamRoutes = require("./routes/Routes.js");
 
+const mongoose = require("mongoose");
+dotenv.config();
 const app = express();
-const PORT = 8000;
+const port = process.env.PORT;
+app.use(express.json());
 
-app.use(cors());
-app.use(express.json({limit:'100mb'}));
-app.use(express.urlencoded({limit:'100mb', extended: true }));
-app.use(cookieParser());
-
-
-
-app.get("/", (req, res) => {
-  res.json({ message: "Hey this is my API running 🥳 - DB connected" });
-});
-// For mobile app
-app.use("/register", require("./routes/api/register"));
-app.use("/updatecredentials", require("./routes/api/updateCredentials"));
-app.use("/applogin", require("./routes/api/appLogin"));
-app.use("/userlogin", require("./routes/api/userLoginUpdates"));
-app.use("/getdeviceinfo", require("./routes/api/getDeviceInfo"));
-app.use("/updatestore", require("./routes/api/updateStore"));
-app.use("/getunits", require("./routes/api/getUnits"));
-app.use("/getsubcriptiontype", require("./routes/api/getSubcriptionTypes"));
-// app.use("/getsubcriptiontype", require("./routes/api/getSubcriptionTypes"));
-app.use(
-  "/updatesubcriptionexpiry",
-  require("./routes/api/updateSubcriptionExpiry")
-);
-app.use("/updatesubcription", require("./routes/api/updateSubcription"));
-app.use("/logo", require("./routes/api/logo"));
-app.use("/getmailinfo", require("./routes/api/getMailInfo"));
-
-// For web portal
-app.use("/alldevice", require("./routes/api/allDevice"));
-app.use("/addsub", require("./routes/api/addSubcription"));
-app.use("/subcriptiontype", require("./routes/api/getSubcriptionTypes"));
+// Database Details
+// const DB_USER = process.env.DB_USER;
+// const DB_PWD = process.env.DB_PWD;
+// const DB_URL = process.env.DB_URL;
+// const DB_NAME = "testing";
+// const DB_COLLECTION_NAME = "players";
 
 
-app.use('/dashboard', require('./routes/api/dashboard'))
 
-// app.listen(PORT, () => {
-//   console.log(`Server started on PORT ${PORT} `);
+const connectDB = async () => {
+    try {
+        const connect = await mongoose.connect(process.env.MONGODB, {
+            // useNewUrlParser: true,
+            // useUnifiedTopology: true
+            // useFindAndModify: true
+        });
+
+        console.log(`Mongo Db Connected ${connect.connection.host}`);
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+connectDB();
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const uri = "mongodb+srv://"+DB_USER+":"+DB_PWD+"@"+DB_URL+"/?retryWrites=true&w=majority&appName=Cluster0";
+
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
 // });
 
-connectDB
-  .authenticate()
-  .then(() =>
-    app.listen(PORT, () => console.log(`server running on port ${PORT}`))
-  )
-  .catch((err) => console.log(`Error while connecting to DB - ${err}`));
+// let db;
 
-// Export the Express API
-module.exports = serverless(app);
+// async function run() {
+//   try {
+//     await client.connect();
+//     await client.db("admin").command({ ping: 1 });
+
+//     db = client.db(DB_NAME);
+    
+//     console.log("You successfully connected to MongoDB!");
+    
+//   } catch(err){
+//     console.log(err.message);
+//   } 
+//   finally {
+//   }
+// }
+
+
+// Sample create document
+async function sampleCreate() {
+  const demo_doc = { 
+    "demo": "doc demo",
+    "hello": "world"
+  };
+  const demo_create = await db.collection(DB_COLLECTION_NAME).insertOne(demo_doc);
+  
+  console.log("Added!")
+  console.log(demo_create.insertedId);
+}
+
+
+// Endpoints
+
+app.use("/add-team", AddTeamRoutes)
+app.use("/process",AddTeamRoutes)
+app.get('/', async (req, res) => {
+  res.send('Hello World!');
+});
+
+
+app.get('/demo', async (req, res) => {
+  await sampleCreate();
+  res.send({status: 1, message: "demo"});
+});
+
+//
+
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
+
+// run();
