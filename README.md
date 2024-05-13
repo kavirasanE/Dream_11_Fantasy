@@ -53,27 +53,9 @@ Half-century Bonus	  +8
 Century Bonus			    +16
 Dismissal for a duck 	-2 (Batter, Wicket-Keeper & All-Rounder only)
 
-{
-    "ID": 1304114,
-    "innings": 1,
-    "overs": 0,
-    "ballnumber": 6,
-    "batter": "RD Gaikwad",
-    "bowler": "TA Boult",
-    "non-striker": "DP Conway",
-    "extra_type": "NA",
-    "batsman_run": 0,
-    "extras_run": 0,
-    "total_run": 0,
-    "non_boundary": 0,
-    "isWicketDelivery": 1,
-    "player_out": "RD Gaikwad",
-    "kind": "caught",
-    "fielders_involved": "SV Samson",
-    "BattingTeam": "Chennai Super Kings"
-  },
-  "caught and bowled"
+ "caught and bowled"
   "bowled"
+
 Bowling Points
 --
 Wicket (Excluding Run Out)	+25
@@ -81,7 +63,7 @@ Bonus (LBW / Bowled)		    +8
 3 Wicket Bonus				      +4
 4 Wicket Bonus				      +8
 5 Wicket Bonus				      +16
-Maiden Over					        +12
+Maiden Over	 				        +12
 
 
 Fielding Points

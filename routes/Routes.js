@@ -1,7 +1,7 @@
 
 const express = require("express");
-const { AddTeamController, TeamResults } = require("../controllers/AddTeamController.js")
-const ProcessTeamController  = require("../controllers/ProcessTeamController.js")
+const { AddTeamController, TeamResults,ProcessTeamController } = require("../controllers/AddTeamController.js")
+// const ProcessTeamController  = require("../controllers/ProcessTeamController.js")
 const router = express.Router();
 
 router.post("/add", AddTeamController)
